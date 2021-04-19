@@ -13,6 +13,7 @@ response = requests.request("GET", url, headers=headers).json()
 
 # Create your views here.
 def helloview(request):
+    
     mylist = []
     noofresults = int(response['results'])
     for x in range(0,noofresults):
@@ -22,6 +23,7 @@ def helloview(request):
       selectedcountry= request.POST['selectedcountry']
       noofresults = int(response['results'])
       for x in range(0,noofresults):
+        
           if selectedcountry==response['response'][x]['country']:
               new = response['response'][x]['cases']['new']
               active= response['response'][x]['cases']['active']
@@ -29,7 +31,7 @@ def helloview(request):
               recovered= response['response'][x]['cases']['recovered']
               total= response['response'][x]['cases']['total']
               deaths= int(total)-int(active)-int(recovered)
-      context={'selectedcountry':selectedcountry,'mylist':mylist,'new':new,'active':active,'critical':critical,'recovered':recovered,'total':total}      
+      context={'selectedcountry':selectedcountry,'mylist':mylist,'new':new,'active':active,'critical':critical,'recovered':recovered,'total':total,'deaths':deaths}      
       return render(request,'helloview.html',context)
     
     
